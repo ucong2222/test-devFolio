@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sbs.devFolio.dao.MemberDao;
+import com.sbs.devFolio.dto.ResultData;
+import com.sbs.devFolio.util.Util;
 
 @Service
 public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
-	
-	public String join(Map<String, Object> param) {
+
+	public ResultData join(Map<String, Object> param) {
 		memberDao.join(param);
-		
-		return param.get("nickname")+ "님 환영합니다!";
+
+		int id = Util.getAsInt(param.get("id"), 0);
+
+		return new ResultData("S-1", String.format("%s님 환영합니다.", param.get("nickname")), "id", id);
 	}
 
 }
