@@ -53,3 +53,14 @@ WHERE id = 2;
 
 # authKey 칼럼에 유니크 인덱스 추가
 ALTER TABLE `test_devFolio`.`member` ADD UNIQUE INDEX (`authKey`);
+
+# 게시물 테이블 추가
+CREATE TABLE article(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    boardId INT(10) UNSIGNED NOT NULL,
+    title CHAR(100) NOT NULL,
+    `body` TEXT NOT NULL
+)

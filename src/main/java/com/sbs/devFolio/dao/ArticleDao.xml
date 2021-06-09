@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sbs.devFolio.dao.ArticleDao">
+	<!-- 
+	useGeneratedKeys : (insert, update에만 적용) 자동생성 키를 받을 때 true로 설정 (default : false)
+	keyProperty : auto_increment로 선언된 column명 입력
+	 -->
+	<insert id= "addArticle" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO article
+		Set regDate = NOW(),
+		updateDAte = NOW(),
+		boardId = #{boardId},
+		memberId = #{memberId},
+		title = #{title},
+		`body` = #{body}
+	</insert>
+</mapper>
