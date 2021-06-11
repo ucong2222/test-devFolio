@@ -35,4 +35,10 @@ public class MemberService {
 		return memberDao.getMemberByAuthKey(authKey);
 	}
 
+	public boolean isAdmin(int id) {
+		Member member = getMember(id);
+		
+		return member.getAuthLevel() == 7;
+	}
+
 }

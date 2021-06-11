@@ -2,6 +2,7 @@ package com.sbs.devFolio.util;
 
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Util {
@@ -51,6 +52,40 @@ public class Util {
 			return Integer.parseInt((String) object);
 		}
 		return defaultValue;
+	}
+
+	public static boolean isEmpty(Object data) {
+		if (data == null) {
+			return true;
+		}
+
+		if (data instanceof String) {
+			String strData = (String) data;
+
+			return strData.trim().length() == 0;
+		} else if (data instanceof Integer) {
+			Integer integerData = (Integer) data;
+
+			return integerData != 0;
+		} else if (data instanceof List) {
+			List listData = (List) data;
+
+			return listData.isEmpty();
+		} else if (data instanceof Map) {
+			Map mapData = (Map) data;
+
+			return mapData.isEmpty();
+		}
+
+		return true;
+	}
+
+	public static <T> T ifEmpty(T data, T defaultValue) {
+		if (isEmpty(data)) {
+			return defaultValue;
+		}
+
+		return data;
 	}
 
 }

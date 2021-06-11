@@ -36,8 +36,6 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("loginedMemberId", loginedMemberId);
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMember", loginedMember);
-
-		System.out.println(loginedMemberId + "zz");
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

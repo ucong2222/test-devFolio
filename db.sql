@@ -12,7 +12,8 @@ CREATE TABLE `member`(
     `name` CHAR(30) NOT NULL,
     nickname CHAR(30) NOT NULL,
     email CHAR(100) NOT NULL,
-    cellphoneNo CHAR(20) NOT NULL
+    cellphoneNo CHAR(20) NOT NULL,
+    authLevel TINYINT(1) UNSIGNED DEFAULT 3 NOT NULL COMMENT '(3=일반, 5=기업, 7=관리자)'
 );
 
 # 로그인 ID로 검색했을 때
@@ -39,6 +40,11 @@ SET regDate = NOW(),
     email = "dbrudrjf21@gmail.com",
     cellphoneNo = "01012341234";
     
+# test1 멤버 관리자로 업데이트
+UPDATE `member`
+SET authLevel = 7
+WHERE id = 1;
+
 # authKey 칼럼을 추가
 ALTER TABLE `member` ADD COLUMN authKey CHAR(80) NOT NULL AFTER loginPw;
 
