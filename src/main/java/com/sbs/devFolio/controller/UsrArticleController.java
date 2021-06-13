@@ -1,5 +1,6 @@
 package com.sbs.devFolio.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.devFolio.dto.Article;
+import com.sbs.devFolio.dto.Board;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.ArticleService;
 import com.sbs.devFolio.util.Util;
@@ -41,6 +43,21 @@ public class UsrArticleController {
 		param.put("memberId", loginedMemberId);
 
 		return articleService.addArticle(param);
+	}
+
+	// 글리스트
+	@RequestMapping("usr/article/list")
+	@ResponseBody
+	public ResultData showList(@RequestParam(defaultValue = "1") int boardId) {
+		Board board = articleService.getBoard(boardId);
+
+		if (board == null) {
+			return new ResultData("F-1", "존재하지 않는 게시판입니다.");
+		}
+		
+		List<Article> articles = articleService.getArticles(board.getId());
+
+		return new ResultData("S-1", "성공", "articles", articles);
 	}
 
 	// 글상세

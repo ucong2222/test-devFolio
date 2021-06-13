@@ -1,5 +1,6 @@
 package com.sbs.devFolio.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.devFolio.dao.ArticleDao;
 import com.sbs.devFolio.dto.Article;
+import com.sbs.devFolio.dto.Board;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.util.Util;
 
@@ -57,6 +59,14 @@ public class ArticleService {
 		articleDao.deleteArticle(id);
 
 		return new ResultData("S-1", "글삭제 성공", "id", id);
+	}
+
+	public Board getBoard(int id) {
+		return articleDao.getBoard(id);
+	}
+
+	public List<Article> getArticles(int boardId) {
+		return articleDao.getArticles(boardId);
 	}
 
 }

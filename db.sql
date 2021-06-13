@@ -70,3 +70,31 @@ CREATE TABLE article(
     title CHAR(100) NOT NULL,
     `body` TEXT NOT NULL
 )
+
+# 게시판 테이블 추가
+CREATE TABLE board(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `name` CHAR(20) NOT NULL,
+    `code` CHAR(20) NOT NULL
+)
+
+# 게시판 테스트 데이터 생성 (포트폴리오, 채용공고, 커뮤니티)
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "portFolio",
+    `name` = "포트폴리오";
+
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "jobPosting",
+    `name` = "채용공고";
+
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "community",
+    `name` = "커뮤니티";
