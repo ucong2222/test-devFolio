@@ -43,6 +43,23 @@ public class UsrArticleController {
 		return articleService.addArticle(param);
 	}
 
+	// 글상세
+	@RequestMapping("usr/article/detail")
+	@ResponseBody
+	public ResultData showDetail(Integer id) {
+		if (id == null) {
+			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
+		}
+
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+		}
+
+		return new ResultData("S-1", "성공", "article", article);
+	}
+
 	// 글수정
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
@@ -84,7 +101,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData doDelete(Integer id, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
-		
+
 		if (id == null) {
 			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
 		}
@@ -94,13 +111,13 @@ public class UsrArticleController {
 		if (article == null) {
 			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
 		}
-		
+
 		ResultData actorCanDeleteRd = articleService.actorCanDeleteRd(article, loginedMemberId);
 
 		if (actorCanDeleteRd.isFail()) {
 			return actorCanDeleteRd;
 		}
-		
+
 		return articleService.deleteArticle(id);
 	}
 
