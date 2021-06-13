@@ -49,4 +49,14 @@ public class ArticleService {
 		return new ResultData("S-1", "글수정 성공", "id", id);
 	}
 
+	public ResultData actorCanDeleteRd(Article article, int loginedMemberId) {
+		return actorCanModifyRd(article, loginedMemberId);
+	}
+
+	public ResultData deleteArticle(int id) {
+		articleDao.deleteArticle(id);
+
+		return new ResultData("S-1", "글삭제 성공", "id", id);
+	}
+
 }

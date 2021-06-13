@@ -56,8 +56,8 @@ public class UsrArticleController {
 		}
 
 		Article article = articleService.getArticle(id);
-		
-		if ( article == null ) {
+
+		if (article == null) {
 			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
 		}
 
@@ -68,15 +68,40 @@ public class UsrArticleController {
 		if (Util.isEmpty(param.get("body"))) {
 			return new ResultData("F-1", "내용을 입력해주세요.");
 		}
-		
+
 		ResultData actorCanModifyRd = articleService.actorCanModifyRd(article, loginedMemberId);
 
 		if (actorCanModifyRd.isFail()) {
 			return actorCanModifyRd;
 		}
-		
+
 		return articleService.modifyArticle(param);
+
+	}
+
+	// 글삭제
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public ResultData doDelete(Integer id, HttpServletRequest req) {
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		
+		if (id == null) {
+			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
+		}
+
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+		}
+		
+		ResultData actorCanDeleteRd = articleService.actorCanDeleteRd(article, loginedMemberId);
+
+		if (actorCanDeleteRd.isFail()) {
+			return actorCanDeleteRd;
+		}
+		
+		return articleService.deleteArticle(id);
 	}
 
 }
