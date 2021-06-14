@@ -41,7 +41,7 @@ public class UsrArticleController extends BaseController {
 	}
 	
 	// 글작성
-	@RequestMapping("/usr/article/doWrite")
+	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
 	public ResultData doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");

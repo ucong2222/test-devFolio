@@ -9,13 +9,44 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css" />
 </head>
+
+<script>
+ArticleWrite__submited = false;
+function ArticleWrite__checkAndSubmit(form){
+	if ( ArticleWrite__submited ) {
+		alert('처리중입니다.');
+		return;
+	}
+	
+	form.title.value = form.title.value.trim();
+	
+	if ( form.title.value.length == 0 ) {
+		alert('제목을 입력해주세요.');
+		form.title.focus();
+		
+		return false;
+	}
+	
+	if ( form.body.value.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		form.body.focus();
+		
+		return false;
+	} 
+	
+	form.submit();
+	ArticleWrite__submited = true;
+	
+}
+</script>
+
 <body>
 	<div class="container mx-auto">
 		<div class="font-bold text-lg mt-10">
 			<span>글 작성</span>
 		</div>
 	
-		<form action="doWrite" method="POST">
+		<form onsubmit="ArticleWrite__checkAndSubmit(this); return false;" action="doWrite" method="POST">
 			<input type="hidden" name="boardId" value="${param.boardId}"/>
 			<div class="mt-4 mb-4">
 				<input type="text" name="title" class="w-full border-2 border-gray-600" placeholder="제목을 입력해주세요" autofocus="autofocus"/>
