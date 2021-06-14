@@ -22,6 +22,12 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 
+	// 글작성 JSP
+	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		return "usr/article/write";
+	}
+	
 	// 글작성
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
