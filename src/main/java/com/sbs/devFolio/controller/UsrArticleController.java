@@ -1,5 +1,6 @@
 package com.sbs.devFolio.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +19,24 @@ import com.sbs.devFolio.service.ArticleService;
 import com.sbs.devFolio.util.Util;
 
 @Controller
-public class UsrArticleController {
+public class UsrArticleController extends BaseController {
 	@Autowired
 	private ArticleService articleService;
 
 	// 글작성 JSP
-	@RequestMapping("/usr/article/write")
-	public String showWrite() {
+	@RequestMapping("usr/article/write")
+	public String showWrite(Integer boardId, HttpServletRequest req) {
+		
+		if(boardId == null) {
+			return msgAndBack(req, "게시판 번호를 입력해주세요.");
+		}
+		
+		Board board = articleService.getBoard(boardId);
+		
+		if ( board == null) {
+			return msgAndBack(req, "해당 게시판은 존재하지 않습니다.");
+		}
+		
 		return "usr/article/write";
 	}
 	
