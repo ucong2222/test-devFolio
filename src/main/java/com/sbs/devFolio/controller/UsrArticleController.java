@@ -64,17 +64,19 @@ public class UsrArticleController extends BaseController {
 
 	// 글리스트
 	@RequestMapping("usr/article/list")
-	@ResponseBody
-	public ResultData showList(@RequestParam(defaultValue = "1") int boardId) {
+	public String showList(@RequestParam(defaultValue = "1") int boardId, HttpServletRequest req) {
 		Board board = articleService.getBoard(boardId);
 
 		if (board == null) {
-			return new ResultData("F-1", "존재하지 않는 게시판입니다.");
+			return msgAndBack(req, "존재하지 않는 게시판입니다.");
 		}
 
 		List<Article> articles = articleService.getArticles(board.getId());
 
-		return new ResultData("S-1", "성공", "articles", articles);
+		req.setAttribute("board", board);
+		req.setAttribute("articles", articles);
+
+		return "usr/article/list";
 	}
 
 	// 글상세

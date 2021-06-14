@@ -10,7 +10,7 @@
 		alert(msg);
 	}
 	
-	if (historyback) {
+	if (historyBack) {
 		history.back();
 	}
 	
