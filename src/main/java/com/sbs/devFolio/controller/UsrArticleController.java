@@ -81,19 +81,20 @@ public class UsrArticleController extends BaseController {
 
 	// 글상세
 	@RequestMapping("usr/article/detail")
-	@ResponseBody
-	public ResultData showDetail(Integer id) {
+	public String showDetail(Integer id, HttpServletRequest req) {
 		if (id == null) {
-			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
+			return msgAndBack(req,"게시물 아이디를 입력해주세요.");
 		}
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+			return msgAndBack(req,"해당 게시물은 존재하지 않습니다.");
 		}
 
-		return new ResultData("S-1", "성공", "article", article);
+		req.setAttribute("article", article);
+		
+		return "usr/article/detail";
 	}
 
 	// 글수정 JSP
