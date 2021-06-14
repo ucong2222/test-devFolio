@@ -1,6 +1,5 @@
 package com.sbs.devFolio.controller;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -26,20 +25,20 @@ public class UsrArticleController extends BaseController {
 	// 글작성 JSP
 	@RequestMapping("usr/article/write")
 	public String showWrite(Integer boardId, HttpServletRequest req) {
-		
-		if(boardId == null) {
+
+		if (boardId == null) {
 			return msgAndBack(req, "게시판 번호를 입력해주세요.");
 		}
-		
+
 		Board board = articleService.getBoard(boardId);
-		
-		if ( board == null) {
+
+		if (board == null) {
 			return msgAndBack(req, "해당 게시판은 존재하지 않습니다.");
 		}
-		
+
 		return "usr/article/write";
 	}
-	
+
 	// 글작성
 	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
@@ -72,7 +71,7 @@ public class UsrArticleController extends BaseController {
 		if (board == null) {
 			return new ResultData("F-1", "존재하지 않는 게시판입니다.");
 		}
-		
+
 		List<Article> articles = articleService.getArticles(board.getId());
 
 		return new ResultData("S-1", "성공", "articles", articles);
@@ -95,8 +94,34 @@ public class UsrArticleController extends BaseController {
 		return new ResultData("S-1", "성공", "article", article);
 	}
 
+	// 글수정 JSP
+	@RequestMapping("usr/article/modify")
+	public String showModify(Integer id, HttpServletRequest req) {
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		if (id == null) {
+			return msgAndBack(req, "수정할 게시판 번호를 입력해주세요.");
+		}
+
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
+		}
+
+		ResultData actorCanModifyRd = articleService.actorCanModifyRd(article, loginedMemberId);
+
+		if (actorCanModifyRd.isFail()) {
+			String msg = actorCanModifyRd.getMsg();
+			return msgAndBack(req, msg);
+		}
+
+		req.setAttribute("article", article);
+
+		return "usr/article/modify";
+	}
+
 	// 글수정
-	@RequestMapping("/usr/article/doModify")
+	@RequestMapping("usr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
