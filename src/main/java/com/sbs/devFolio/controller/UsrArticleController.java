@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
@@ -41,25 +40,28 @@ public class UsrArticleController extends BaseController {
 
 	// 글작성
 	@RequestMapping("usr/article/doWrite")
-	@ResponseBody
-	public ResultData doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("boardId") == null) {
-			return new ResultData("F-1", "게시판 번호를 입력해주세요.");
+			return msgAndBack(req, "게시판 번호를 입력해주세요.");
 		}
 
 		if (param.get("title") == null) {
-			return new ResultData("F-1", "제목을 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (param.get("body") == null) {
-			return new ResultData("F-1", "내용을 입력해주세요");
+			return msgAndBack(req, "내용을 입력해주세요");
 		}
 
 		param.put("memberId", loginedMemberId);
 
-		return articleService.addArticle(param);
+		ResultData addArticleRd = articleService.addArticle(param);
+
+		int newArticleId = (int) addArticleRd.getBody().get("id");
+
+		return msgAndReplace(req, "작성이 완료되었습니다.", "../article/detail?id=" + newArticleId);
 	}
 
 	// 글리스트
@@ -83,17 +85,17 @@ public class UsrArticleController extends BaseController {
 	@RequestMapping("usr/article/detail")
 	public String showDetail(Integer id, HttpServletRequest req) {
 		if (id == null) {
-			return msgAndBack(req,"게시물 아이디를 입력해주세요.");
+			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return msgAndBack(req,"해당 게시물은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
 
 		req.setAttribute("article", article);
-		
+
 		return "usr/article/detail";
 	}
 
@@ -125,63 +127,67 @@ public class UsrArticleController extends BaseController {
 
 	// 글수정
 	@RequestMapping("usr/article/doModify")
-	@ResponseBody
-	public ResultData doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		int id = Util.getAsInt(param.get("id"), 0);
 
 		if (id == 0) {
-			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
+			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
 
 		if (Util.isEmpty(param.get("title"))) {
-			return new ResultData("F-1", "제목을 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (Util.isEmpty(param.get("body"))) {
-			return new ResultData("F-1", "내용을 입력해주세요.");
+			return msgAndBack(req, "내용을 입력해주세요.");
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModifyRd(article, loginedMemberId);
 
 		if (actorCanModifyRd.isFail()) {
-			return actorCanModifyRd;
+			String msg = actorCanModifyRd.getMsg();
+			return msgAndBack(req, msg);
 		}
 
-		return articleService.modifyArticle(param);
+		articleService.modifyArticle(param);
+
+		return msgAndReplace(req, "게시물이 수정되었습니다.", "../article/detail?id" + id);
 
 	}
 
 	// 글삭제
 	@RequestMapping("/usr/article/doDelete")
-	@ResponseBody
-	public ResultData doDelete(Integer id, HttpServletRequest req) {
+	public String doDelete(Integer id, HttpServletRequest req) {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (id == null) {
-			return new ResultData("F-1", "게시물 아이디를 입력해주세요.");
+			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
-			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
 
 		ResultData actorCanDeleteRd = articleService.actorCanDeleteRd(article, loginedMemberId);
 
 		if (actorCanDeleteRd.isFail()) {
-			return actorCanDeleteRd;
+			String msg = actorCanDeleteRd.getMsg();
+			return msgAndBack(req, msg);
 		}
 
-		return articleService.deleteArticle(id);
+		articleService.deleteArticle(id);
+
+		return msgAndReplace(req, "게시물이 삭제되었습니다.", "../article/list?boardId=" + article.getBoardId());
 	}
 
 }
