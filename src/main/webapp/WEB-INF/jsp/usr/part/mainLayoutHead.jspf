@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="head.jspf"%>
 
+${loginedMemberId}
 <header class="top-bar h-20 px-2 md:block hidden">
   <div class="lg:container mx-auto h-full flex font-bold text-xl">
     <a href="../home/main" class="logo h-full border-red-500">
@@ -51,44 +52,48 @@
       </ul>
     </nav>
 
-    <div class="logouted flex items-center font-normal hidden">
-      <div>
-        <a href="#" class="text-gray-600 hover:text-gray-800 mr-4">로그인</a>
-      </div>
-      <div>
-        <a href="#" class="text-gray-600 hover:text-gray-800">회원가입</a>
-      </div>
-    </div>
+	<c:if test="${isLogined==false}">
+	    <div class="logouted flex items-center font-normal">
+	      <div>
+	        <a href="#" class="text-gray-600 hover:text-gray-800 mr-4">로그인</a>
+	      </div>
+	      <div>
+	        <a href="#" class="text-gray-600 hover:text-gray-800">회원가입</a>
+	      </div>
+	    </div>
+    </c:if>
 
-    <div class="logined flex font-normal">
-      <ul class="mr-4 h-full">
-        <li class="relative h-full">
-          <div class="flex h-full items-center px-2">
-            <span class="flex items-center mr-1 text-2xl"><i class="fas fa-user-circle"></i></span>
-            <span>김유경 님</span>
-          </div>
-          <ul class="absolute hidden w-full top-full left-0 bg-white border-box">
-            <li>
-              <a href="#" class="block py-5 text-center">
-                <span>마이페이지</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="block py-5 text-center">
-                <span>로그아웃</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-
-      <div class="flex items-center">
-        <a href="#" class="flex">
-          <span class="flex items-center mr-1"><i class="far fa-bell"></i></span>
-          <span>알림</span>
-        </a>
-      </div>
-    </div>
+	<c:if test="${isLogined}">
+	    <div class="logined flex font-normal">
+	      <ul class="mr-4 h-full">
+	        <li class="relative h-full">
+	          <div class="flex h-full items-center px-2">
+	            <span class="flex items-center mr-1 text-2xl"><i class="fas fa-user-circle"></i></span>
+	            <span>김유경 님</span>
+	          </div>
+	          <ul class="absolute hidden w-full top-full left-0 bg-white border-box">
+	            <li>
+	              <a href="#" class="block py-5 text-center">
+	                <span>마이페이지</span>
+	              </a>
+	            </li>
+	            <li>
+	              <a href="#" class="block py-5 text-center">
+	                <span>로그아웃</span>
+	              </a>
+	            </li>
+	          </ul>
+	        </li>
+	      </ul>
+	
+	      <div class="flex items-center">
+	        <a href="#" class="flex">
+	          <span class="flex items-center mr-1"><i class="far fa-bell"></i></span>
+	          <span>알림</span>
+	        </a>
+	      </div>
+	    </div>
+    </c:if>
   </div>
 </header>
 
@@ -107,7 +112,7 @@
   </div>
 
   <div class="h-full flex">
-    <a href="/" class="logo h-full border-red-500">
+    <a href="../home/main" class="logo h-full border-red-500">
       <img class="h-14" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlrGO7%2FbtqZMohoycN%2FzyK8QDrHR2ZZGXj0wpby51%2Fimg.png" alt="">
     </a>
   </div>
@@ -128,32 +133,36 @@
   </div>
   <nav class="mobile-side-bar__menu-box-1 w-full mt-2">
     <ul class="text-gray-600 text-lg">
-      <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
-          <span class="w-6 inline-block"><i class="fas fa-sign-in-alt"></i></span>
-          <span>로그인</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
-          <span class="w-6 inline-block"><i class="fas fa-user-plus"></i></span>
-          <span>회원가입</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
-          <span class="w-6 inline-block"><i class="fas fa-user-circle"></i></span>
-          <span>마이페이지</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
-          <span class="w-6 inline-block"><i class="far fa-bell"></i></span>
-          <span>알림</span>
-        </a>
-      </li>
+      <c:if test="${isLogined==false}">
+	      <li>
+	        <a href="#" class="block border-t border-gray-200 p-2">
+	          <span class="w-6 inline-block"><i class="fas fa-sign-in-alt"></i></span>
+	          <span>로그인</span>
+	        </a>
+	      </li>
+	      <li>
+	        <a href="#" class="block border-t border-gray-200 p-2">
+	          <span class="w-6 inline-block"><i class="fas fa-user-plus"></i></span>
+	          <span>회원가입</span>
+	        </a>
+	      </li>
+      </c:if>
+      <c:if test="${isLogined}">
+	      <li>
+	        <a href="#" class="block border-t border-gray-200 p-2">
+	          <span class="w-6 inline-block"><i class="fas fa-user-circle"></i></span>
+	          <span>마이페이지</span>
+	        </a>
+	      </li>
+	      <li>
+	        <a href="#" class="block border-t border-gray-200 p-2">
+	          <span class="w-6 inline-block"><i class="far fa-bell"></i></span>
+	          <span>알림</span>
+	        </a>
+	      </li>
+      </c:if>
       <li class="border-t-8 border-gray-200">
-        <a href="portFolio" class="block border-b p-2">
+        <a href="../pages/portFolio" class="block border-b p-2">
           <span class="w-6 inline-block"><i class="fas fa-border-all"></i></span>
           <span>포트폴리오</span>
         </a>
@@ -188,12 +197,15 @@
           <span>Q&A</span>
         </a>
       </li>
-      <li class="border-t-8 border-gray-200">
-        <a href="#" class="block border-b p-2">
-          <span class="w-6 inline-block"><i class="fas fa-sign-out-alt"></i></span>
-          <span>로그아웃</span>
-        </a>
-      </li>
+      
+      <c:if test="${isLogined}">
+	      <li class="border-t-8 border-gray-200">
+	        <a href="#" class="block border-b p-2">
+	          <span class="w-6 inline-block"><i class="fas fa-sign-out-alt"></i></span>
+	          <span>로그아웃</span>
+	        </a>
+	      </li>
+      </c:if>
 
     </ul>
   </nav>
