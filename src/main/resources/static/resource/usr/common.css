@@ -78,7 +78,6 @@ html > body{
   bottom: 0%;
   background-color: white;
   transition: left 0.3s;
-  display: flex;
   padding-bottom: 56px;
 }
 .mobile-side-bar.active {
