@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글작성</title>
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css" />
-</head>
+<%@ include file="../part/head.jspf"%>
 
 <script>
 ArticleModifysubmited = false;
@@ -40,7 +32,7 @@ function ArticleModifycheckAndSubmit(form){
 }
 </script>
 
-<body>
+<section>
 	<div class="container mx-auto">
 		<div class="font-bold text-lg mt-10">
 			<span>글 수정</span>
@@ -58,5 +50,6 @@ function ArticleModifycheckAndSubmit(form){
 			<input onclick="history.back();" type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" value="취소"/>
 		</form>
 	</div>
-</body>
-</html>
+</section>
+
+<%@ include file="../part/foot.jspf"%>

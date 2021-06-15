@@ -2,17 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${board.name}게시판 리스트</title>
+<%@ include file="../part/head.jspf"%>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css" />
-</head>
-
-<body>
+<section>
 	<div class="container mx-auto">
 		<div class="font-bold text-lg mt-10">
 			<span>${board.name}게시판 리스트</span>
@@ -32,5 +24,6 @@
 		</div>
 
 	</div>
-</body>
-</html>
+</section>
+
+<%@ include file="../part/foot.jspf"%>

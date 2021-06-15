@@ -2,17 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글상세</title>
+<%@ include file="../part/head.jspf"%>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css" />
-</head>
-
-<body>
+<section>
 	<div class="container mx-auto">
 		<div class="font-bold text-lg mt-10">
 			<span>글상세</span>
@@ -27,7 +19,7 @@
 				<span>내용 : ${article.body}</span>
 			</div>
 		</div>
-
 	</div>
-</body>
-</html>
+</section>
+
+<%@ include file="../part/foot.jspf"%>
