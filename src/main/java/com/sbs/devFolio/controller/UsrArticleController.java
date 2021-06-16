@@ -175,7 +175,7 @@ public class UsrArticleController extends BaseController {
 
 		articleService.modifyArticle(param);
 
-		return msgAndReplace(req, "게시물이 수정되었습니다.", "../article/detail?id" + id);
+		return msgAndReplace(req, "게시물이 수정되었습니다.", "../article/detail?id=" + id);
 
 	}
 
