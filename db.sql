@@ -71,6 +71,26 @@ CREATE TABLE article(
     `body` TEXT NOT NULL
 )
 
+# 게시물 테스트 데이터 생성 
+INSERT INTO article
+SET regDate = NOW(),
+    updateDate = NOW(),
+    memberid = 1,
+    boardId = 1,
+    title = "제목_1",
+    `body` = "내용_1";
+
+# 게시물 테스트 데이터 랜덤 생성 (memberId 1,2 random and baordId 1,2,3 random)
+/*
+INSERT INTO article
+(regDate, updateDate, memberId, boardId, title, `body`) 
+SELECT NOW(), NOW(), FLOOR(RAND() * 2 ) + 1, ROUND(RAND() * 2) + 1,CONCAT('제목_',FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1 ) 
+FROM article;
+
+SELECT COUNT(*) FROM articl
+*/
+
+
 # 게시판 테이블 추가
 CREATE TABLE board(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -78,7 +98,7 @@ CREATE TABLE board(
     updateDate DATETIME NOT NULL,
     `name` CHAR(20) NOT NULL,
     `code` CHAR(20) NOT NULL
-)
+);
 
 # 게시판 테스트 데이터 생성 (포트폴리오, 채용공고, 커뮤니티)
 INSERT INTO board

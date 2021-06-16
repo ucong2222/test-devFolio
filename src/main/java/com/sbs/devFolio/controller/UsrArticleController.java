@@ -81,6 +81,22 @@ public class UsrArticleController extends BaseController {
 		return "usr/article/list";
 	}
 
+	@RequestMapping("/usr/pages/portFolio")
+	public String showPortFolio(@RequestParam(defaultValue = "1") int boardId, HttpServletRequest req) {
+		Board board = articleService.getBoard(boardId);
+
+		if (board == null) {
+			return msgAndBack(req, "존재하지 않는 게시판입니다.");
+		}
+
+		List<Article> articles = articleService.getForPrintArticles(board.getId());
+
+		req.setAttribute("board", board);
+		req.setAttribute("articles", articles);
+		
+		return "/usr/pages/portFolio";
+	}
+
 	// 글상세
 	@RequestMapping("usr/article/detail")
 	public String showDetail(Integer id, HttpServletRequest req) {

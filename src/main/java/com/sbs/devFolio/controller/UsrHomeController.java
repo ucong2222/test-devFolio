@@ -11,8 +11,4 @@ public class UsrHomeController {
 		return "/usr/pages/portFolio";
 	}
 	
-	@RequestMapping("/usr/pages/portFolio")
-	public String showPortFolio() {
-		return "/usr/pages/portFolio";
-	}
 }
