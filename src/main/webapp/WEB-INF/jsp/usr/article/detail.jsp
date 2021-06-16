@@ -14,7 +14,9 @@
 				<span>번호 : ${article.id}</span>
 				<span>작성날짜 : ${article.regDate}</span>
 				<span>수정날짜 : ${article.updateDate}</span>
+				<span>게시판이름 : ${article.extra__boardName}</span>
 				<span>작성자번호 : ${article.memberId}</span>
+				<span>작성자 : ${article.extra__writer}</span>
 				<span>제목 : ${article.title}</span>
 				<span>내용 : ${article.body}</span>
 			</div>

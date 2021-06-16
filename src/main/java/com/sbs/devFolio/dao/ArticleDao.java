@@ -24,4 +24,8 @@ public interface ArticleDao {
 
 	public List<Article> getArticles(@Param("boardId") int boardId);
 
+	public Article getForPrintArticle(@Param("id") int id);
+
+	public List<Article> getForPrintArticles(@Param("boardId") int boardId);
+
 }

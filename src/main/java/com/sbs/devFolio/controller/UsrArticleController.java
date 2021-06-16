@@ -73,7 +73,7 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "존재하지 않는 게시판입니다.");
 		}
 
-		List<Article> articles = articleService.getArticles(board.getId());
+		List<Article> articles = articleService.getForPrintArticles(board.getId());
 
 		req.setAttribute("board", board);
 		req.setAttribute("articles", articles);
@@ -88,7 +88,7 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
