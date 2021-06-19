@@ -17,7 +17,7 @@
 	          <h3>포트폴리오를 작성해보세요!</h3>
 	          <div class="slider-contents-btn">
 	            <div class="flex justify-end">
-	              <a href="../article/write?boardId=1" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded">포트폴리오 작성하기</a>
+	              <a href="../article/write?boardId=1" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded z-10">포트폴리오 작성하기</a>
 	            </div>
 	          </div>
 	        </div>
@@ -26,14 +26,14 @@
 	      <li class="w-1/4" style="background-color:#22DFBF">
 	        <div class="slider-contents-bottom">
 	          <h3>채용공고를 확인해보세요!</h3>
-	          <div class="flex justify-end"><a href="../article/list?boardId=2"" class="bg-green-500 hover:bg-green-900 hover:text-white font-bold py-2 px-4 rounded">채용공고 확인하기</a></div>
+	          <div class="flex justify-end"><a href="../article/list?boardId=2"" class="bg-green-500 hover:bg-green-900 hover:text-white font-bold py-2 px-4 rounded z-10">채용공고 확인하기</a></div>
 	        </div>
 	      </li>
 	      
 	      <li class="w-1/4" style="background-color:#c6e5f3">
 	        <div class="slider-contents-bottom">
 	          <h3>개발자가 되기 위해선 뭘 준비해야할까?</h3>
-	          <div class="flex justify-end"><a href="../article/list?boardId=3"" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded">커뮤니티 들어가기</a></div>
+	          <div class="flex justify-end"><a href="../article/list?boardId=3"" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded z-10">커뮤니티 들어가기</a></div>
 	        </div>
 	      </li>
 	
