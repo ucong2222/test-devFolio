@@ -34,11 +34,35 @@ public class MemberService {
 	public Member getMemberByAuthKey(String authKey) {
 		return memberDao.getMemberByAuthKey(authKey);
 	}
+	
+	public Member getMemberByNickname(String nickname) {
+		return memberDao.getMemberByNickname(nickname);
+	}
 
 	public boolean isAdmin(int id) {
 		Member member = getMember(id);
-		
+
 		return member.getAuthLevel() == 7;
+	}
+
+	public int loginIdCheck(String loginId) {
+		Member member = getMemberByLoginId(loginId);
+
+		if (member != null) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	public int nicknameCheck(String nickname) {
+		Member member = getMemberByNickname(nickname);
+
+		if (member != null) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }

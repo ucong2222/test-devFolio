@@ -51,6 +51,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/usr/member/join")
 				.excludePathPatterns("/usr/member/doJoin")
 				.excludePathPatterns("/usr/member/authKey")
+				.excludePathPatterns("/usr/member/loginIdCheck")
+				.excludePathPatterns("/usr/member/nicknameCheck")
 				.excludePathPatterns("/usr/file/test*")
 				.excludePathPatterns("/usr/file/doTest*")
 				.excludePathPatterns("/test/**")

@@ -2,6 +2,7 @@ package com.sbs.devFolio.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,44 +16,66 @@ import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.MemberService;
 
 @Controller
-public class UsrMemberController {
+public class UsrMemberController extends BaseController{
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping("/usr/member/doJoin")
+	@RequestMapping("/usr/member/join")
+	public String showJoin() {
+		return "usr/member/join";
+	}
+	
+	@RequestMapping("/usr/member/loginIdCheck")
 	@ResponseBody
-	public ResultData doJoin(@RequestParam Map<String, Object> param) {
+	public int loginIdCheck(@RequestParam Map<String, Object> param) {
+		String loginId = (String) param.get("loginId");
+		int result = memberService.loginIdCheck(loginId);
+		return result;
+	}	
+	
+	@RequestMapping("/usr/member/nicknameCheck")
+	@ResponseBody
+	public int nicknameCheck(@RequestParam Map<String, Object> param) {
+		String nickname = (String) param.get("nickname");
+		int result = memberService.nicknameCheck(nickname);
+		return result;
+	}
+
+	@RequestMapping("/usr/member/doJoin")
+	public String doJoin(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		if (param.get("loginId") == null) {
-			return new ResultData("F-1", "로그인아이디를 입력해주세요.");
+			return msgAndBack(req, "로그인아이디를 입력해주세요.");
 		}
 
 		Member existingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
 
 		if (existingMember != null) {
-			return new ResultData("F-2", String.format("%s (은)는 이미 사용중인 로그인 아이디 입니다.", param.get("loginId")));
+			return msgAndBack(req, String.format("%s (은)는 이미 사용중인 로그인 아이디 입니다.", param.get("loginId")));
 		}
 
-		if (param.get("loginPw") == null) {
-			return new ResultData("F-1", "로그인 비밀번호를 입력해주세요.");
+		if (param.get("loginPwReal") == null) {
+			return msgAndBack(req,"로그인 비밀번호를 입력해주세요.");
 		}
 
 		if (param.get("name") == null) {
-			return new ResultData("F-1", "이름을 입력해주세요.");
+			return msgAndBack(req,"이름을 입력해주세요.");
 		}
 
 		if (param.get("nickname") == null) {
-			return new ResultData("F-1", "별명을 입력해주세요.");
+			return msgAndBack(req, "별명을 입력해주세요.");
 		}
 
 		if (param.get("email") == null) {
-			return new ResultData("F-1", "이메일을 입력해주세요.");
+			return msgAndBack(req, "이메일을 입력해주세요.");
 		}
 
 		if (param.get("cellphoneNo") == null) {
-			return new ResultData("F-1", "번호를 입력해주세요.");
+			return msgAndBack(req, "번호를 입력해주세요.");
 		}
 
-		return memberService.join(param);
+		memberService.join(param);
+		
+		return msgAndReplace(req, "회원가입이 완료되었습니다.", "../home/main");
 
 	}
 
@@ -97,7 +120,7 @@ public class UsrMemberController {
 
 		return new ResultData("S-1", "로그아웃 되었습니다.");
 	}
-	
+
 	@RequestMapping("/usr/member/memberByAuthKey")
 	@ResponseBody
 	public ResultData showMemberByAuthKey(String authKey) {
@@ -109,7 +132,7 @@ public class UsrMemberController {
 
 		return new ResultData("S-1", String.format("유요한 회원입니다."), "member", existingMember);
 	}
-	
+
 	@RequestMapping("/usr/member/authKey")
 	@ResponseBody
 	public ResultData showAuthKey(String loginId, String loginPw) {
@@ -131,6 +154,7 @@ public class UsrMemberController {
 			return new ResultData("F-3", "비밀번호가 일치하지 않습니다.");
 		}
 
-		return new ResultData("S-1", String.format("%s님 환영합니다.", existingMember.getNickname()), "authKey", existingMember.getAuthKey(), "member", existingMember);
+		return new ResultData("S-1", String.format("%s님 환영합니다.", existingMember.getNickname()), "authKey",
+				existingMember.getAuthKey(), "member", existingMember);
 	}
 }

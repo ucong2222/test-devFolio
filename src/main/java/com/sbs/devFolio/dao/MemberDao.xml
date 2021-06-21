@@ -9,7 +9,7 @@
 		SET regDate = NOW(),
 			updateDate = NOW(),
 			loginId = #{loginId},
-			loginPw = #{loginPw},
+			loginPw = #{loginPwReal},
 			`name` = #{name},
 			nickname = #{nickname},
 			email = #{email},
@@ -33,5 +33,11 @@
 		SELECT *
 		FROM `member`
 		WHERE authKey = #{authKey}
+	</select>
+	
+	<select id="getMemberByNickname" resultType="Member">
+		SELECT *
+		FROM `member`
+		WHERE nickname = #{nickname}
 	</select>
 </mapper>

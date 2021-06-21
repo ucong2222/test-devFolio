@@ -11,9 +11,24 @@ html > body{
 }
 */
 
+/* 메인 컬러 시작 */
 .bg-main {
   background-color: #2e4c92;
 }
+
+.text-main {
+  color: #2e4c92;
+}
+
+.text-color-1{
+  color:#233e7d;
+}
+
+.login-btn:hover{
+  background-color:#233e7d;
+}
+
+/* 메인 컬러 끝 */
 
 /* 메뉴바 - pc 시작 */
 .top-bar__menu-box-1 ul > li:hover > a,
