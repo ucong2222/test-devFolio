@@ -45,6 +45,10 @@ UPDATE `member`
 SET authLevel = 7
 WHERE id = 1;
 
+# 기존회원의 비번을 암호화
+UPDATE `member`
+SET loginPw = SHA2(loginPw, 256);
+
 # authKey 칼럼을 추가
 ALTER TABLE `member` ADD COLUMN authKey CHAR(80) NOT NULL AFTER loginPw;
 
@@ -56,6 +60,7 @@ WHERE id = 1;
 UPDATE `member`
 SET authKey = 'authKey1__2'
 WHERE id = 2;
+
 
 # authKey 칼럼에 유니크 인덱스 추가
 ALTER TABLE `test_devFolio`.`member` ADD UNIQUE INDEX (`authKey`);

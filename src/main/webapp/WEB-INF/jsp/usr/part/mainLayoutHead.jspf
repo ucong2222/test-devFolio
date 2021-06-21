@@ -25,7 +25,7 @@
           <div class="flex items-center h-full px-10">
             <span>커뮤니티</span>
           </div>
-          <ul class="absolute hidden w-full top-full mt-1 left-0 bg-white border-box">
+          <ul class="absolute hidden w-full top-full mt-1 left-0 bg-white border-box z-20">
             <li>
               <a href="#" class="block py-5 text-center hover-menu">
                 <span>공지사항</span>
@@ -54,7 +54,7 @@
 	<c:if test="${isLogined==false}">
 	    <div class="logouted flex items-center font-normal">
 	      <div>
-	        <a href="#" class="text-gray-600 hover:text-gray-800 mr-4">로그인</a>
+	        <a href="../member/login" class="text-gray-600 hover:text-gray-800 mr-4">로그인</a>
 	      </div>
 	      <div>
 	        <a href="../member/join" class="text-gray-600 hover:text-gray-800">회원가입</a>
@@ -68,16 +68,16 @@
 	        <li class="relative h-full">
 	          <div class="flex h-full items-center px-2">
 	            <span class="flex items-center mr-1 text-2xl"><i class="fas fa-user-circle"></i></span>
-	            <span>김유경 님</span>
+	            <span class="w-20">${loginedMember.nickname}</span>
 	          </div>
-	          <ul class="absolute hidden w-full top-full left-0 bg-white border-box">
+	          <ul class="absolute hidden w-full top-full left-0 bg-white border-box z-20">
 	            <li>
 	              <a href="#" class="block py-5 text-center">
 	                <span>마이페이지</span>
 	              </a>
 	            </li>
 	            <li>
-	              <a href="#" class="block py-5 text-center">
+	              <a href="../member/doLogout" class="block py-5 text-center">
 	                <span>로그아웃</span>
 	              </a>
 	            </li>
@@ -134,7 +134,7 @@
     <ul class="text-gray-600 text-lg">
       <c:if test="${isLogined==false}">
 	      <li>
-	        <a href="#" class="block border-t border-gray-200 p-2">
+	        <a href="../member/login" class="block border-t border-gray-200 p-2">
 	          <span class="w-6 inline-block"><i class="fas fa-sign-in-alt"></i></span>
 	          <span>로그인</span>
 	        </a>
@@ -199,7 +199,7 @@
       
       <c:if test="${isLogined}">
 	      <li class="border-t-8 border-gray-200">
-	        <a href="#" class="block border-b p-2">
+	        <a href="../member/doLogout" class="block border-b p-2">
 	          <span class="w-6 inline-block"><i class="fas fa-sign-out-alt"></i></span>
 	          <span>로그아웃</span>
 	        </a>

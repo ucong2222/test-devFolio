@@ -16,7 +16,7 @@ import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.MemberService;
 
 @Controller
-public class UsrMemberController extends BaseController{
+public class UsrMemberController extends BaseController {
 	@Autowired
 	private MemberService memberService;
 
@@ -24,15 +24,15 @@ public class UsrMemberController extends BaseController{
 	public String showJoin() {
 		return "usr/member/join";
 	}
-	
+
 	@RequestMapping("/usr/member/loginIdCheck")
 	@ResponseBody
 	public int loginIdCheck(@RequestParam Map<String, Object> param) {
 		String loginId = (String) param.get("loginId");
 		int result = memberService.loginIdCheck(loginId);
 		return result;
-	}	
-	
+	}
+
 	@RequestMapping("/usr/member/nicknameCheck")
 	@ResponseBody
 	public int nicknameCheck(@RequestParam Map<String, Object> param) {
@@ -54,11 +54,11 @@ public class UsrMemberController extends BaseController{
 		}
 
 		if (param.get("loginPwReal") == null) {
-			return msgAndBack(req,"로그인 비밀번호를 입력해주세요.");
+			return msgAndBack(req, "로그인 비밀번호를 입력해주세요.");
 		}
 
 		if (param.get("name") == null) {
-			return msgAndBack(req,"이름을 입력해주세요.");
+			return msgAndBack(req, "이름을 입력해주세요.");
 		}
 
 		if (param.get("nickname") == null) {
@@ -74,51 +74,54 @@ public class UsrMemberController extends BaseController{
 		}
 
 		memberService.join(param);
-		
+
 		return msgAndReplace(req, "회원가입이 완료되었습니다.", "../home/main");
 
 	}
 
+	@RequestMapping("usr/member/login")
+	public String showLogin() {
+		return "usr/member/login";
+	}
+
 	@RequestMapping("/usr/member/doLogin")
-	@ResponseBody
-	public ResultData doLogin(String loginId, String loginPw, HttpSession session) {
+	public String doLogin(String loginId, String loginPwReal, HttpSession session, HttpServletRequest req) {
 		if (session.getAttribute("loginedMemberId") != null) {
-			return new ResultData("F-4", "이미 로그인 되었습니다.");
+			return msgAndBack(req, "이미 로그인 되었습니다.");
 		}
 
 		if (loginId == null) {
-			return new ResultData("F-1", "로그인 아이디를 입력해주세요.");
+			return msgAndBack(req, "로그인 아이디를 입력해주세요.");
 		}
 
 		Member existingMember = memberService.getMemberByLoginId(loginId);
 
 		if (existingMember == null) {
-			return new ResultData("F-2", "존재하지 않는 로그인 아이디 입니다.", "loginId", loginId);
+			return msgAndBack(req, "존재하지 않는 로그인 아이디 입니다.");
 		}
 
-		if (loginPw == null) {
-			return new ResultData("F-1", "로그인 비밀번호를 입력해주세요.");
+		if (loginPwReal == null) {
+			return msgAndBack(req, "로그인 비밀번호를 입력해주세요.");
 		}
 
-		if (existingMember.getLoginPw().equals(loginPw) == false) {
-			return new ResultData("F-3", "비밀번호가 일치하지 않습니다.");
+		if (existingMember.getLoginPw().equals(loginPwReal) == false) {
+			return msgAndBack(req, "비밀번호가 일치하지 않습니다.");
 		}
 
 		session.setAttribute("loginedMemberId", existingMember.getId());
 
-		return new ResultData("S-1", String.format("%s 님 환영합니다.", existingMember.getNickname()));
+		return msgAndReplace(req, "로그인 성공하셨습니다.", "../home/main");
 	}
 
 	@RequestMapping("/usr/member/doLogout")
-	@ResponseBody
-	public ResultData doLogout(HttpSession session) {
+	public String doLogout(HttpSession session, HttpServletRequest req) {
 		if (session.getAttribute("loginedMemberId") == null) {
-			return new ResultData("S-2", "이미 로그아웃 되었습니다.");
+			return msgAndBack(req, "이미 로그아웃 되었습니다.");
 		}
 
 		session.removeAttribute("loginedMemberId");
 
-		return new ResultData("S-1", "로그아웃 되었습니다.");
+		return msgAndReplace(req, "로그아웃 되었습니다.", "../home/main");
 	}
 
 	@RequestMapping("/usr/member/memberByAuthKey")
