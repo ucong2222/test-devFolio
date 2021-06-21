@@ -3,24 +3,24 @@
 <%@ include file="../part/mainLayoutHead.jspf"%>
     
 <main>
-  <div id="wrapper" class="w-full">
-	  <div id="slider-wrap" class="w-full">
+  <div id="wrapper" class="w-full px-0">
+	  <div id="slider-wrap" class="w-full px-0">
 	    <ul id="slider">
 	      <li class="w-1/4" style="background-color:#2E4C92">
 	        <div class="slider-contents-top">
 	          <h3>PortFolio에 오신걸 환영합니다!</h3>
 	        </div>
+	        <img src="/resource/usr/img/portFolio/img1.png" alt="" class="mx-auto"/>
 	      </li>
 	
 	      <li class="w-1/4" style="background-color:#258BF7">
 	        <div class="slider-contents-bottom">
 	          <h3>포트폴리오를 작성해보세요!</h3>
-	          <div class="slider-contents-btn">
-	            <div class="flex justify-end">
-	              <a href="../article/write?boardId=1" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded z-10">포트폴리오 작성하기</a>
-	            </div>
-	          </div>
+              <div class="flex justify-end">
+                <a href="../article/write?boardId=1" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded z-10">포트폴리오 작성하기</a>
+              </div>
 	        </div>
+	        <img src="/resource/usr/img/portFolio/img2.png" alt="" class="mx-auto"/>
 	      </li>
 	
 	      <li class="w-1/4" style="background-color:#22DFBF">
@@ -28,6 +28,7 @@
 	          <h3>채용공고를 확인해보세요!</h3>
 	          <div class="flex justify-end"><a href="../article/list?boardId=2"" class="bg-green-500 hover:bg-green-900 hover:text-white font-bold py-2 px-4 rounded z-10">채용공고 확인하기</a></div>
 	        </div>
+	        <img src="/resource/usr/img/portFolio/img3.png" alt="" class="mx-auto"/>
 	      </li>
 	      
 	      <li class="w-1/4" style="background-color:#c6e5f3">
@@ -35,6 +36,7 @@
 	          <h3>개발자가 되기 위해선 뭘 준비해야할까?</h3>
 	          <div class="flex justify-end"><a href="../article/list?boardId=3"" class="bg-blue-400 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded z-10">커뮤니티 들어가기</a></div>
 	        </div>
+	        <img src="/resource/usr/img/portFolio/img4.png" alt="" class="mx-auto"/>
 	      </li>
 	
 	    </ul>

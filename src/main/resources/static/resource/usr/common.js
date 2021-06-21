@@ -22,7 +22,7 @@ MobileTopBar__init();
 
 var pos = 0;
 var totalSlides = $('#slider-wrap ul li').length;
-var sliderWidth = $('#slider-wrap').width();
+var sliderWidth = $('#slider-wrap').width() + 16;
 
 $(window).resize(function (){
   // width값을 가져오기
