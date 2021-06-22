@@ -17,7 +17,7 @@
           </a>
         </li>
         <li class="border-b-4 border-transparent hover:border-gray-300">
-          <a href="/article/list" class="flex items-center h-full px-10">
+          <a href="../article/list?boardId=2" class="flex items-center h-full px-10">
             <span>채용공고</span>
           </a>
         </li>
@@ -27,22 +27,22 @@
           </div>
           <ul class="absolute hidden w-full top-full mt-1 left-0 bg-white border-box z-20">
             <li>
-              <a href="#" class="block py-5 text-center hover-menu">
+              <a href="../article/list?boardId=3" class="block py-5 text-center hover-menu">
                 <span>공지사항</span>
               </a>
             </li>
             <li>
-              <a href="#" class="block py-5 text-center">
+              <a href="../article/list?boardId=4" class="block py-5 text-center">
                 <span>취업톡톡</span>
               </a>
             </li>
             <li>
-              <a href="#" class="block py-5 text-center">
+              <a href="../article/list?boardId=5" class="block py-5 text-center">
                 <span>개발톡톡</span>
               </a>
             </li>
             <li>
-              <a href="#" class="block py-5 text-center">
+              <a href="../article/list?boardId=6" class="block py-5 text-center">
                 <span>Q&A</span>
               </a>
             </li>
@@ -167,31 +167,31 @@
         </a>
       </li>
       <li class="border-t-8 border-gray-200">
-        <a href="#" class="block border-b p-2">
+        <a href="../article/list?boardId=2" class="block border-b p-2">
           <span class="w-6 inline-block"><i class="far fa-building"></i></span>
           <span>채용공고</span>
         </a>
       </li>
       <li class="border-t-8 border-gray-200">
-        <a href="#" class="block border-b p-2">
+        <a href="../article/list?boardId=3" class="block border-b p-2">
           <span class="w-6 inline-block"><i class="fas fa-bullhorn"></i></span>
           <span>공지사항</span>
         </a>
       </li>
       <li>
-        <a href="#" class="block border-gray-200 p-2">
+        <a href="../article/list?boardId=4" class="block border-gray-200 p-2">
           <span class="w-6 inline-block"><i class="fas fa-users"></i></span>
           <span>취업톡톡</span>
         </a>
       </li>
       <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
+        <a href="../article/list?boardId=5" class="block border-t border-gray-200 p-2">
           <span class="w-6 inline-block"><i class="fas fa-chalkboard-teacher"></i></span>
           <span>개발톡톡</span>
         </a>
       </li>
       <li>
-        <a href="#" class="block border-t border-gray-200 p-2">
+        <a href="../article/list?boardId=6" class="block border-t border-gray-200 p-2">
           <span class="w-6 inline-block"><i class="fas fa-question-circle"></i></span>
           <span>Q&A</span>
         </a>

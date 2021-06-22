@@ -74,7 +74,7 @@ CREATE TABLE article(
     boardId INT(10) UNSIGNED NOT NULL,
     title CHAR(100) NOT NULL,
     `body` TEXT NOT NULL
-)
+);
 
 # 게시물 테스트 데이터 생성 
 INSERT INTO article
@@ -105,7 +105,7 @@ CREATE TABLE board(
     `code` CHAR(20) NOT NULL
 );
 
-# 게시판 테스트 데이터 생성 (포트폴리오, 채용공고, 커뮤니티)
+# 게시판 테스트 데이터 생성 (포트폴리오, 채용공고, 커뮤니티(공지사항, 취업톡톡, 개발톡톡 , Q&A))
 INSERT INTO board
 SET regDate = NOW(),
     updateDate = NOW(),
@@ -122,4 +122,22 @@ INSERT INTO board
 SET regDate = NOW(),
     updateDate = NOW(),
     `code` = "community",
-    `name` = "커뮤니티";
+    `name` = "공지사항";
+    
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "community",
+    `name` = "취업톡톡";  
+    
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "community",
+    `name` = "개발톡톡";
+    
+INSERT INTO board
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = "community",
+    `name` = "Q&A";

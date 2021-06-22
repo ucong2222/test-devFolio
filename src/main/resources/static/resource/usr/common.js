@@ -24,7 +24,10 @@ var pos = 0;
 var totalSlides = $('#slider-wrap ul li').length;
 var sliderWidth = $('#slider-wrap').width() + 16;
 
-$(window).resize(function (){
+
+$(document).ready(function(){
+  
+  $(window).resize(function (){
   // width값을 가져오기
   var width_size = window.outerWidth;
   
@@ -34,10 +37,8 @@ $(window).resize(function (){
   $('#slider li').css("width",sliderWidth + "px");
   
   slideLeft();
-})
+  })
 
-$(document).ready(function(){
-  
   //set width to be 'x' times the number of slides
   $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
   
