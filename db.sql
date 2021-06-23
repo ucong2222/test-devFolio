@@ -73,7 +73,8 @@ CREATE TABLE article(
     memberId INT(10) UNSIGNED NOT NULL,
     boardId INT(10) UNSIGNED NOT NULL,
     title CHAR(100) NOT NULL,
-    `body` TEXT NOT NULL
+    `body` TEXT NOT NULL,
+    hitCount INT(10) UNSIGNED NOT NULL
 );
 
 # 게시물 테스트 데이터 생성 

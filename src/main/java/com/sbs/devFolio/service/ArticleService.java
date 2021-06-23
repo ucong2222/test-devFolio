@@ -77,4 +77,8 @@ public class ArticleService {
 		return articleDao.getForPrintArticles(boardId);
 	}
 
+	public void increaseHit(int id) {
+		articleDao.increaseHit(id);
+	}
+
 }

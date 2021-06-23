@@ -104,12 +104,15 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
+		// 상세페이지 접속 시 조회수 증가
+		articleService.increaseHit(id);
+		
 		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
-
+		
 		req.setAttribute("article", article);
 
 		return "usr/article/detail";

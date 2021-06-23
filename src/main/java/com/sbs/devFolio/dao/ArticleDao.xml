@@ -81,4 +81,12 @@
 		FROM board
 		WHERE id = #{id}
 	</select>
+	
+	<update id="increaseHit">
+		UPDATE article
+		<set>
+			hitCount = hitCount + 1
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>

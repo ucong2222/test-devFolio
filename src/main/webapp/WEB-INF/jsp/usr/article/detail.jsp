@@ -19,6 +19,7 @@
 				<span>작성자 : ${article.extra__writer}</span>
 				<span>제목 : ${article.title}</span>
 				<span>내용 : ${article.body}</span>
+				<span>조회수 : ${article.hitCount}</span>
 			</div>
 		</div>
 	</div>

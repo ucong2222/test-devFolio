@@ -137,7 +137,7 @@
   </div>
 
   <div class="secion-3">
-    <div class="container m-auto portfolio-list-box mt-6">
+    <div class="container m-auto portfolio-list-box mt-6 mb-6">
       <div class="portfolio-list grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 px-3 gap-x-6 gap-y-20">
 
 		<c:forEach items="${articles}" var="article">
@@ -159,7 +159,7 @@
 	              <div class="flex-grow"></div>
 	              <div class="portfolio-hit">
 	                <span><i class="far fa-eye"></i></span>
-	                <span>36</span>
+	                <span>${article.hitCount}</span>
 	              </div>
 	              <div class="portfolio-like ml-2">
 	                <span><i class="far fa-heart"></i></span>

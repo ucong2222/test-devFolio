@@ -28,4 +28,6 @@ public interface ArticleDao {
 
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId);
 
+	public void increaseHit(@Param("id") int id);
+
 }
