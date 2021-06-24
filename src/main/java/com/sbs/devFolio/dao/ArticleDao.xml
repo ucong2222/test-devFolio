@@ -27,12 +27,16 @@
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT A.*,
 		IFNULL(M.nickname,"탈퇴회원") AS extra__writer,
-		B.name AS extra__boardName
+		B.name AS extra__boardName,
+		IFNULL(SUM(L.point),0) AS extra__likePoint
 		FROM article AS A
 		INNER JOIN member AS M
 		ON A.memberId = M.id
 		INNER JOIN board AS B
 		ON A.boardId = B.id
+		LEFT JOIN `like` AS L
+		ON L.relTypeCode = 'article'
+		AND A.id = L.relId
 		WHERE A.id = #{id}
 	</select>
 	
@@ -45,13 +49,18 @@
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,
 		IFNULL(M.nickname,"탈퇴회원") AS extra__writer,
-		B.name AS extra__boardName
+		B.name AS extra__boardName,
+		IFNULL(SUM(L.point),0) AS extra__likePoint
 		FROM article AS A
 		INNER JOIN member AS M
 		ON A.memberId = M.id
 		INNER JOIN board AS B
 		ON A.boardId = B.id
+		LEFT JOIN `like` AS L
+		ON L.relTypeCode = 'article'
+		AND A.id = L.relId
 		WHERE A.boardId = #{boardId}
+		GROUP BY A.id
 		ORDER BY A.id DESC
 	</select>
 	

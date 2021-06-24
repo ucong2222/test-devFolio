@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sbs.devFolio.dao.LikeDao">
+	<!-- 
+	useGeneratedKeys : (insert, update에만 적용) 자동생성 키를 받을 때 true로 설정 (default : false)
+	keyProperty : auto_increment로 선언된 column명 입력
+	 -->
+	<select id="getLike" resultType="Like">
+		SELECT *
+		FROM `like`
+		WHERE 1
+		AND relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+		AND memberId = #{actorId}
+		AND `point` = #{point}
+	</select>
+	
+	<insert id="setPoint">
+		INSERT INTO `like`
+		SET regDate = NOW(),
+			updateDate = NOW(),
+		    relTypeCode = #{relTypeCode},
+		    relId = #{relId},
+		    memberId = #{actorId}, 
+		    `point` = #{point}
+	</insert>
+	
+	<delete id="removePoint">
+		DELETE FROM `like`
+		WHERE 1
+		AND relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+		AND memberId = #{actorId}
+		AND `point` = #{point}
+	</delete>
+</mapper>

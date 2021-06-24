@@ -163,7 +163,7 @@
 	              </div>
 	              <div class="portfolio-like ml-2">
 	                <span><i class="far fa-heart"></i></span>
-	                <span>36</span>
+	                <span>${article.extra__likePoint}</span>
 	              </div>
 	              <div class="portfolio-reply ml-2">
 	                <span><i class="far fa-comment-dots"></i></span>

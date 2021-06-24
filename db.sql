@@ -142,3 +142,18 @@ SET regDate = NOW(),
     updateDate = NOW(),
     `code` = "community",
     `name` = "Q&A";
+
+# 좋아요 테이블 추가  
+CREATE TABLE `like`(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    relTypeCode CHAR(30) NOT NULL,
+    relId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    `point` SMALLINT(1) UNSIGNED NOT NULL
+);
+
+# 좋아요 인덱스 추가
+# 인덱스 : 테이블에 저장된 데이터를 빠르게 조회하기 위한 데이터베이스 객체
+ALTER TABLE `like` ADD INDEX(relTypeCode, relId, memberId);

@@ -4,6 +4,33 @@
 
 <%@ include file="../part/head.jspf"%>
 
+<script>
+
+// 좋아요 기능 구현
+function doLike(relTypeCode, relId){
+	if (${loginedMemberId}==0){
+		alert('로그인 이후 이용해주세요.');
+		return;
+	}
+	
+	$.get('../like/doLike',
+			{
+			relTypeCode,
+			relId
+			},
+			function(data){
+				alert(data.msg);
+				
+				if (data.body.relTypeCode == 'article'){
+					$('.likePoint').text(data.body.likePoint);
+				}
+			},
+			'json',
+		);
+}
+
+</script>
+
 <section>
 	<div class="container mx-auto">
 		<div class="font-bold text-lg mt-10">
@@ -20,6 +47,9 @@
 				<span>제목 : ${article.title}</span>
 				<span>내용 : ${article.body}</span>
 				<span>조회수 : ${article.hitCount}</span>
+				
+				<div> 추천 </div>
+				<div> <a onclick="doLike('article',${article.id});" class="cursor-pointer"><i class="far fa-heart"></i></a> <span class="likePoint">${article.extra__likePoint}</span></div>
 			</div>
 		</div>
 	</div>

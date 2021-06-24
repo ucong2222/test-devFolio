@@ -5,8 +5,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Util {
 
+	// Json으로 변환
+	public static String getJsonText(Object obj) {
+		ObjectMapper mapper = new ObjectMapper();
+		String rs = "";
+		try {
+			rs = mapper.writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 	public static Map<String, Object> mapOf(Object... args) {
 		if (args.length % 2 != 0) {
 			throw new IllegalArgumentException("인자를 짝수개 입력해주세요.");
