@@ -14,12 +14,15 @@ import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.ArticleService;
+import com.sbs.devFolio.service.LikeService;
 import com.sbs.devFolio.util.Util;
 
 @Controller
 public class UsrArticleController extends BaseController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private LikeService likeService;
 
 	// 글작성 JSP
 	@RequestMapping("usr/article/write")
@@ -113,7 +116,10 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
 		
+		boolean alreadyDoLike = likeService.alreadyDoLike("article", id, article.getMemberId() , 1);
+		
 		req.setAttribute("article", article);
+		req.setAttribute("alreadyDoLike", alreadyDoLike);
 
 		return "usr/article/detail";
 	}

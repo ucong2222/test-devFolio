@@ -24,6 +24,12 @@ function doLike(relTypeCode, relId){
 				if (data.body.relTypeCode == 'article'){
 					$('.likePoint').text(data.body.likePoint);
 				}
+				
+				if (data.resultCode == "S-1"){
+					document.getElementById('like').classList.replace('far', 'fas');
+				} else if (data.resultCode=="S-2"){
+					document.getElementById('like').classList.replace('fas', 'far');
+				}
 			},
 			'json',
 		);
@@ -49,7 +55,19 @@ function doLike(relTypeCode, relId){
 				<span>조회수 : ${article.hitCount}</span>
 				
 				<div> 추천 </div>
-				<div> <a onclick="doLike('article',${article.id});" class="cursor-pointer"><i class="far fa-heart"></i></a> <span class="likePoint">${article.extra__likePoint}</span></div>
+				<div> 
+					<a onclick="doLike('article',${article.id});" class="cursor-pointer">
+						<c:choose> 
+							<c:when test="${alreadyDoLike}">
+								<i id="like" class="fas fa-heart"></i>
+							</c:when> 
+							<c:otherwise>
+								<i id="like" class="far fa-heart"></i>
+							</c:otherwise> 
+						</c:choose>
+					</a>
+					<span class="likePoint">${article.extra__likePoint}</span>
+				</div>
 			</div>
 		</div>
 	</div>
