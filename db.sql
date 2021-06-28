@@ -74,7 +74,7 @@ CREATE TABLE article(
     boardId INT(10) UNSIGNED NOT NULL,
     title CHAR(100) NOT NULL,
     `body` TEXT NOT NULL,
-    hitCount INT(10) UNSIGNED NOT NULL
+    hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0
 );
 
 # 게시물 테스트 데이터 생성 

@@ -16,6 +16,7 @@ import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.ArticleService;
+import com.sbs.devFolio.service.GenFileService;
 import com.sbs.devFolio.service.LikeService;
 import com.sbs.devFolio.util.Util;
 
@@ -25,6 +26,8 @@ public class UsrArticleController extends BaseController {
 	private ArticleService articleService;
 	@Autowired
 	private LikeService likeService;
+	@Autowired
+	private GenFileService genFileService;
 
 	// 글작성 JSP
 	@RequestMapping("usr/article/write")
@@ -47,13 +50,6 @@ public class UsrArticleController extends BaseController {
 	@RequestMapping("usr/article/doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
-		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-
-		if (true) {
-			ResultData file = new ResultData("S-1", "테스트", "fileMap.keySet", fileMap.keySet());
-			return json(req, file);
-		}
-
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("boardId") == null) {
@@ -73,7 +69,40 @@ public class UsrArticleController extends BaseController {
 		ResultData addArticleRd = articleService.addArticle(param);
 
 		int newArticleId = (int) addArticleRd.getBody().get("id");
+		
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		
+		for (String fileInputName : fileMap.keySet()) {
+			// 예시 : file__article__0__common__attachment__1
+			MultipartFile multipartFile = fileMap.get(fileInputName);
+			String[] fileInputNameBits = fileInputName.split("__");
 
+			if (fileInputNameBits[0].equals("file") == false) {
+				continue;
+			}
+
+			int fileSize = (int) multipartFile.getSize();
+
+			// 여러개의 파일입력 상자 중 입력안한경우는 넘어가기
+			if (fileSize <= 0) {
+				continue;
+			}
+
+			String relTypeCode = fileInputNameBits[1];
+			int relId = newArticleId;
+			String typeCode = fileInputNameBits[3];
+			String type2Code = fileInputNameBits[4];
+			int fileNo = Integer.parseInt(fileInputNameBits[5]);
+			String originFileName = multipartFile.getOriginalFilename();
+			String fileExtTypeCode = Util.getFileExtTypeCodeFromFileName(multipartFile.getOriginalFilename());
+			String fileExtType2Code = Util.getFileExtType2CodeFromFileName(multipartFile.getOriginalFilename());
+			String fileExt = Util.getFileExtFromFileName(multipartFile.getOriginalFilename()).toLowerCase();
+			String fileDir = Util.getNowYearMonthDateStr();
+
+			genFileService.saveMeta(relTypeCode, relId, typeCode, type2Code, fileNo, originFileName, fileExtTypeCode,
+					fileExtType2Code, fileExt, fileSize, fileDir);
+		}
+		
 		return msgAndReplace(req, "작성이 완료되었습니다.", "../article/detail?id=" + newArticleId);
 	}
 

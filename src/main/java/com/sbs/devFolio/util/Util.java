@@ -1,6 +1,7 @@
 package com.sbs.devFolio.util;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,64 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Util {
+	public static String getFileExtTypeCodeFromFileName(String fileName) {
+		String ext = getFileExtFromFileName(fileName).toLowerCase();
+
+		switch (ext) {
+		case "jpeg":
+		case "jpg":
+		case "gif":
+		case "png":
+			return "img";
+		case "mp4":
+		case "avi":
+		case "mov":
+			return "video";
+		case "mp3":
+			return "audio";
+		}
+
+		return "etc";
+	}
+
+	public static String getFileExtType2CodeFromFileName(String fileName) {
+		String ext = getFileExtFromFileName(fileName).toLowerCase();
+
+		switch (ext) {
+		case "jpeg":
+		case "jpg":
+			return "jpg";
+		case "gif":
+			return ext;
+		case "png":
+			return ext;
+		case "mp4":
+			return ext;
+		case "mov":
+			return ext;
+		case "avi":
+			return ext;
+		case "mp3":
+			return ext;
+		}
+
+		return "etc";
+	}
+
+	public static String getFileExtFromFileName(String fileName) {
+		int pos = fileName.lastIndexOf(".");
+		String ext = fileName.substring(pos + 1);
+
+		return ext;
+	}
+
+	public static String getNowYearMonthDateStr() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy_MM");
+
+		String dateStr = format1.format(System.currentTimeMillis());
+
+		return dateStr;
+	}
 
 	// Json으로 변환
 	public static String getJsonText(Object obj) {
@@ -21,7 +80,7 @@ public class Util {
 		}
 		return rs;
 	}
-	
+
 	public static Map<String, Object> mapOf(Object... args) {
 		if (args.length % 2 != 0) {
 			throw new IllegalArgumentException("인자를 짝수개 입력해주세요.");
