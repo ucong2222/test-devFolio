@@ -12,3 +12,5 @@ spring:
     password: sbs123414
 mybatis:
   type-aliases-package: com.sbs.devFolio.dto 
+custom:
+  genFileDirPath: C:/work/portFolio-file
