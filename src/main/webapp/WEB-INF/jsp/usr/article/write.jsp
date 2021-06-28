@@ -38,7 +38,7 @@ function ArticleWrite__checkAndSubmit(form){
 			<span>글 작성</span>
 		</div>
 	
-		<form onsubmit="ArticleWrite__checkAndSubmit(this); return false;" action="doWrite" method="POST">
+		<form onsubmit="ArticleWrite__checkAndSubmit(this); return false;" action="doWrite" method="POST" enctype="multipart/form-data">
 			<input type="hidden" name="boardId" value="${param.boardId}"/>
 			<div class="mt-4 mb-4">
 				<input type="text" name="title" class="w-full border-2 border-gray-600" placeholder="제목을 입력해주세요" autofocus="autofocus"/>
@@ -46,6 +46,17 @@ function ArticleWrite__checkAndSubmit(form){
 			<div class="mb-2">
 				<textarea name="body" class="w-full h-36 border-2 border-gray-600" placeholder="작성할 내용을 입력해주세요"></textarea>
 			</div>
+			
+			
+			<div class="mb-4">
+				<!-- file table / relTypeCode /relId / 카테고리 / 1번 -->
+				<input type="file" name="file__article__0__common__attachment__1"/>
+			</div>
+			<div class="mb-4">
+				<!-- file table / relTypeCode /relId / 카테고리 / 1번 -->
+				<input type="file" name="file__article__0__common__attachment__2"/>
+			</div>
+			
 			<input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" value="작성" />
 			<input onclick="history.back();" type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" value="취소"/>
 		</form>

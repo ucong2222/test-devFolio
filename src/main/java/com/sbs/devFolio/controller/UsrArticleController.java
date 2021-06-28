@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
@@ -43,7 +45,15 @@ public class UsrArticleController extends BaseController {
 
 	// 글작성
 	@RequestMapping("usr/article/doWrite")
-	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+	public String doWrite(@RequestParam Map<String, Object> param, HttpServletRequest req,
+			MultipartRequest multipartRequest) {
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+
+		if (true) {
+			ResultData file = new ResultData("S-1", "테스트", "fileMap.keySet", fileMap.keySet());
+			return json(req, file);
+		}
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("boardId") == null) {
@@ -96,7 +106,7 @@ public class UsrArticleController extends BaseController {
 
 		req.setAttribute("board", board);
 		req.setAttribute("articles", articles);
-		
+
 		return "/usr/pages/portFolio";
 	}
 
@@ -109,15 +119,15 @@ public class UsrArticleController extends BaseController {
 
 		// 상세페이지 접속 시 조회수 증가
 		articleService.increaseHit(id);
-		
+
 		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
-		
-		boolean alreadyDoLike = likeService.alreadyDoLike("article", id, article.getMemberId() , 1);
-		
+
+		boolean alreadyDoLike = likeService.alreadyDoLike("article", id, article.getMemberId(), 1);
+
 		req.setAttribute("article", article);
 		req.setAttribute("alreadyDoLike", alreadyDoLike);
 
