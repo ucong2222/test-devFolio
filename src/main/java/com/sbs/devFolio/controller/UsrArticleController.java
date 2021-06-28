@@ -119,7 +119,7 @@ public class UsrArticleController extends BaseController {
 			if ( genFile != null ) {
 				article.setExtra__thumbImg(genFile.getForPrintUrl());
 			} else {
-				article.setExtra__thumbImg("https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751_960_720.png");
+				article.setExtra__thumbImg("/resource/usr/img/portFolio/thumbImg1.png");
 			}
 		}
 		
