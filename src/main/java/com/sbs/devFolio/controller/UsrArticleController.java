@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
+import com.sbs.devFolio.dto.GenFile;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.service.ArticleService;
 import com.sbs.devFolio.service.GenFileService;
@@ -112,6 +113,16 @@ public class UsrArticleController extends BaseController {
 
 		List<Article> articles = articleService.getForPrintArticles(board.getId());
 
+		for ( Article article : articles ) {
+			GenFile genFile = genFileService.getGenFile("article", article.getId(), "common", "attachment", 1);
+
+			if ( genFile != null ) {
+				article.setExtra__thumbImg(genFile.getForPrintUrl());
+			} else {
+				article.setExtra__thumbImg("https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751_960_720.png");
+			}
+		}
+		
 		req.setAttribute("board", board);
 		req.setAttribute("articles", articles);
 

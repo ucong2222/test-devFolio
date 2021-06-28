@@ -20,4 +20,5 @@ public class Article {
 	private String extra__writer;
 	private String extra__boardName;
 	private int extra__likePoint;
+	private String extra__thumbImg;
 }

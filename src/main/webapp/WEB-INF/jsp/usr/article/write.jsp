@@ -48,12 +48,13 @@ function ArticleWrite__checkAndSubmit(form){
 			</div>
 			
 			
-			<div class="mb-4">
+			<div class="mb-4 flex">
 				<!-- file table / relTypeCode /relId / 카테고리 / 1번 -->
+				<div class="font-bold w-36">썸네일 사진 첨부</div>
 				<input type="file" name="file__article__0__common__attachment__1"/>
 			</div>
-			<div class="mb-4">
-				<!-- file table / relTypeCode /relId / 카테고리 / 1번 -->
+			<div class="mb-4 flex">
+				<div class="font-bold w-36">이력서 첨부</div>
 				<input type="file" name="file__article__0__common__attachment__2"/>
 			</div>
 			

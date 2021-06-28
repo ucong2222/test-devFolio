@@ -145,7 +145,7 @@
 	        <div class="portfolio-list-item">
 	          <div class="portfolio-list-img-box relative pt-80p overflow-hidden rounded-md box-border">
 	            <a class="portfolio-list-img block" href="${detailUrl}">
-	              <img class="absolute inset-0 h-full object-cover duration-1000" src="https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751_960_720.png" alt="">
+	              <img class="absolute inset-0 h-full object-cover duration-1000" src="${article.extra__thumbImg}" alt="">
 	            </a>
 	          </div>
 	          <div class="portfolio-list-info">
