@@ -54,19 +54,26 @@ function doLike(relTypeCode, relId){
 				<span>내용 : ${article.body}</span>
 				<span>조회수 : ${article.hitCount}</span>
 				
-				<div> 추천 </div>
-				<div> 
-					<a onclick="doLike('article',${article.id});" class="cursor-pointer">
-						<c:choose> 
-							<c:when test="${alreadyDoLike}">
-								<i id="like" class="fas fa-heart"></i>
-							</c:when> 
-							<c:otherwise>
-								<i id="like" class="far fa-heart"></i>
-							</c:otherwise> 
-						</c:choose>
-					</a>
-					<span class="likePoint">${article.extra__likePoint}</span>
+				<div class="flex font-bold mt-4">
+					<div class="mr-2">추천</div>
+					<div> 
+						<a onclick="doLike('article',${article.id});" class="cursor-pointer">
+							<c:choose> 
+								<c:when test="${alreadyDoLike}">
+									<i id="like" class="fas fa-heart"></i>
+								</c:when> 
+								<c:otherwise>
+									<i id="like" class="far fa-heart"></i>
+								</c:otherwise> 
+							</c:choose>
+						</a>
+						<span class="likePoint">${article.extra__likePoint}</span>
+					</div>
+				</div>
+				
+				<div class="flex font-bold mt-4">
+					<a href="modify?id=${article.id}" class="mr-2">수정</a>
+					<a onclick="if (!confirm('삭제하시겠습니까?')) return false;" href="doDelete?id=${article.id}">삭제</a>
 				</div>
 			</div>
 		</div>

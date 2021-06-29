@@ -28,6 +28,7 @@
 		SELECT A.*,
 		IFNULL(M.nickname,"탈퇴회원") AS extra__writer,
 		B.name AS extra__boardName,
+		B.code As extra__boardCode,
 		IFNULL(SUM(L.point),0) AS extra__likePoint
 		FROM article AS A
 		INNER JOIN member AS M

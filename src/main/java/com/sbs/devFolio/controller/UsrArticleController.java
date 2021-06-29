@@ -226,7 +226,7 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "게시물 아이디를 입력해주세요.");
 		}
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
@@ -241,7 +241,7 @@ public class UsrArticleController extends BaseController {
 
 		articleService.deleteArticle(id);
 
-		return msgAndReplace(req, "게시물이 삭제되었습니다.", "../article/list?boardId=" + article.getBoardId());
+		return msgAndReplace(req, "게시물이 삭제되었습니다.", "../pages/" + article.getExtra__boardCode());
 	}
 
 }
