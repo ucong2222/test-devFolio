@@ -2,9 +2,11 @@ package com.sbs.devFolio.util;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -160,6 +162,12 @@ public class Util {
 		}
 
 		return data;
+	}
+
+	// "10,20,30" -> [ 10, 20, 30] 
+	public static List<Integer> getListDividedBy(String str, String divideBy) {
+		return Arrays.asList(str.split(divideBy)).stream().map(s -> Integer.parseInt(s.trim()))
+				.collect(Collectors.toList());
 	}
 
 }
