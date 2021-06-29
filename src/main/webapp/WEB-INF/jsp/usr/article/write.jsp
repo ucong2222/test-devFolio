@@ -26,6 +26,27 @@ function ArticleWrite__checkAndSubmit(form){
 		return false;
 	} 
 	
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024 ;
+	
+	if (form.file__article__0__common__attachment__1.value) {
+		if (form.file__article__0__common__attachment__1.files[0].size > maxSize) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			form.file__article__0__common__attachment__1.focus();
+			
+			return;
+		}
+	}
+	
+	if (form.file__article__0__common__attachment__2.value) {
+		if (form.file__article__0__common__attachment__2.files[0].size > maxSize) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			form.file__article__0__common__attachment__2.focus();
+			
+			return;
+		}
+	}
+	
 	form.submit();
 	ArticleWrite__submited = true;
 	
