@@ -62,7 +62,7 @@ public class ArticleService {
 	public ResultData deleteArticle(int id) {
 		articleDao.deleteArticle(id);
 
-		genFileService.deleteFiles("article", id);
+		genFileService.deleteGenFile("article", id);
 
 		return new ResultData("S-1", "글삭제 성공", "id", id);
 	}
