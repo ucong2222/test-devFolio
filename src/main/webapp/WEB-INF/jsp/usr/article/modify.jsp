@@ -114,6 +114,7 @@ function ArticleModifycheckAndSubmit(form){
 				<c:set var="file" value="${article.extra.file__common__attachment[fileNo1] }" />
 				<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 					<div>
+						${file.fileName}(${file.fileSize}byte)
 						<img src="${file.forPrintUrl}"/>
 					</div>
 					<div class="mt-2">
