@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.sbs.devFolio.util.Util" %>
+
 <%@ include file="../part/head.jspf"%>
 
 <script>
@@ -114,8 +116,10 @@ function ArticleModifycheckAndSubmit(form){
 				<c:set var="file" value="${article.extra.file__common__attachment[fileNo1] }" />
 				<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 					<div>
-						${file.fileName}(${file.fileSize}byte)
-						<img src="${file.forPrintUrl}"/>
+						<a href="${file.forPrintUrl}" target="_blank" class="text-blue-500 hover:underline">${file.fileName}</a> ( ${Util.numberFormat(file.fileSize)} Byte )
+						<a class="block" href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+                        	<img class="max-w-sm" src="${file.forPrintUrl}">
+                        </a>
 					</div>
 					<div class="mt-2">
 						<span class="font-bold">썸네일 수정</span>
