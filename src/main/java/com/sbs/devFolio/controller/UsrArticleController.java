@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.sbs.devFolio.dto.Article;
@@ -71,18 +70,6 @@ public class UsrArticleController extends BaseController {
 		ResultData addArticleRd = articleService.addArticle(param);
 
 		int newArticleId = (int) addArticleRd.getBody().get("id");
-
-		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-
-		for (String fileInputName : fileMap.keySet()) {
-			// 예시 : file__article__0__common__attachment__1
-			MultipartFile multipartFile = fileMap.get(fileInputName);
-
-			if (multipartFile.isEmpty() == false) {
-				genFileService.save(multipartFile, newArticleId);
-			}
-
-		}
 
 		return msgAndReplace(req, "작성이 완료되었습니다.", "../article/detail?id=" + newArticleId);
 	}

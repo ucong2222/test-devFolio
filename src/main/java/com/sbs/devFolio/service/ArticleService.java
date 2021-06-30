@@ -25,7 +25,7 @@ public class ArticleService {
 		articleDao.addArticle(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
-
+		
 		changeInputFileRelIds(param, id);
 
 		return new ResultData("S-1", "글작성 성공", "id", id);
@@ -51,8 +51,6 @@ public class ArticleService {
 		articleDao.modifyArticle(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
-
-		changeInputFileRelIds(param, id);
 
 		return new ResultData("S-1", "글수정 성공", "id", id);
 	}

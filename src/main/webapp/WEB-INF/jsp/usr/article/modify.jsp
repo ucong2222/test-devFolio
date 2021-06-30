@@ -6,6 +6,8 @@
 <%@ include file="../part/head.jspf"%>
 
 <script>
+const articleId = parseInt("${article.id}");
+
 ArticleModifysubmited = false;
 function ArticleModifycheckAndSubmit(form){
 	if ( ArticleModifysubmited ) {
@@ -32,19 +34,22 @@ function ArticleModifycheckAndSubmit(form){
 	var maxSizeMb = 50;
 	var maxSize = maxSizeMb * 1024 * 1024 ;
 	
-	if (form.file__article__0__common__attachment__1.value) {
-		if (form.file__article__0__common__attachment__1.files[0].size > maxSize) {
+	const input1 = form["file__article__" + articleId + "__common__attachment__" + 1];
+	const input2 = form["file__article__" + articleId + "__common__attachment__" + 2];
+	
+	if (input1.value) {
+		if (input1.files[0].size > maxSize) {
 			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
-			form.file__article__0__common__attachment__1.focus();
+			input1.focus();
 			
 			return;
 		}
 	}
 	
-	if (form.file__article__0__common__attachment__2.value) {
-		if (form.file__article__0__common__attachment__2.files[0].size > maxSize) {
+	if (input2.value) {
+		if (input2.files[0].size > maxSize) {
 			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
-			form.file__article__0__common__attachment__2.focus();
+			input2.focus();
 			
 			return;
 		}
@@ -57,17 +62,17 @@ function ArticleModifycheckAndSubmit(form){
 			form.genFileIdsStr.value = data.body.genFileIdsStr;
 		}
 		
-		form.file__article__0__common__attachment__1.value = '';
-		form.file__article__0__common__attachment__2.value = '';
+		input1.value = '';
+		input2.value = '';
 		
 		form.submit();
 	};
 	
 	const startUploadFiles = function(onSuccess){
-		var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
+		var needToUpload = input1.value.length > 0;
 		
 		if (!needToUpload) {
-			needToUpload = form.file__article__0__common__attachment__2.value.length > 0;
+			needToUpload = input2.value.length > 0;
 		}
 		
 		if (needToUpload == false){
@@ -121,11 +126,14 @@ function ArticleModifycheckAndSubmit(form){
                         	<img class="max-w-sm" src="${file.forPrintUrl}">
                         </a>
 					</div>
-					<div class="mt-2 mb-2">
-						<span class="font-bold">썸네일 수정</span>
-						<input type="file" name="file__article__0__common__attachment__1" />
-					</div>
 				</c:if>
+				<c:if test="${file == null}">
+					<img class="max-w-sm" src="${article.extra__thumbImg}">
+				</c:if>
+				<div class="mt-2 mb-2">
+					<span class="font-bold">썸네일 수정</span>
+					<input type="file" name="file__article__${article.id}__common__attachment__1" />
+				</div>
 				
 				<c:set var="fileNo2" value="${String.valueOf(2)}" />
 				<c:set var="file" value="${article.extra.file__common__attachment[fileNo2] }" />
@@ -139,12 +147,12 @@ function ArticleModifycheckAndSubmit(form){
 					</div>
 					<div class="mt-2">
 						<span class="font-bold">이력서 수정</span>
-						<input type="file" name="file__article__0__common__attachment__2" />
+						<input type="file" name="file__article__${article.id}__common__attachment__2" />
 					</div>
 				</c:if>
 				<c:if test="${file == null}">
 					<span class="font-bold">이력서 추가</span>
-					<input type="file" name="file__article__0__common__attachment__2" />
+					<input type="file" name="file__article__${article.id}__common__attachment__2" />
 				</c:if>
 				
 				
