@@ -121,7 +121,7 @@ public class GenFileService {
 			}
 
 		}
-		
+
 		// 구아바 라이브러리 사용
 		String genFileIdsStr = Joiner.on(",").join(genFileIds);
 
@@ -134,19 +134,26 @@ public class GenFileService {
 	}
 
 	public void deleteFiles(String relTypeCode, int relId) {
-		List<GenFile> genFiles = genFileDao.getGenFiles(relTypeCode, relId);
-		
-		for ( GenFile genFile : genFiles) {
+		List<GenFile> genFiles = getGenFiles(relTypeCode, relId);
+
+		for (GenFile genFile : genFiles) {
 			deleteFile(genFile);
 		}
-		
+
 	}
 
 	private void deleteFile(GenFile genFile) {
 		String filePath = genFile.getFilePath(genFileDirPath);
 		Util.deleteFile(filePath);
-		
+
 		genFileDao.deleteFile(genFile.getId());
 	}
 
+	public List<GenFile> getGenFiles(String relTypeCode, int relId, String typeCode, String type2Code) {
+		return genFileDao.getGenFiles(relTypeCode, relId, typeCode, type2Code);
+	}
+
+	public List<GenFile> getGenFiles(String relTypeCode, int relId) {
+		return genFileDao.getGenFiles(relTypeCode, relId, null, null);
+	}
 }

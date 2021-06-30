@@ -1,5 +1,8 @@
 package com.sbs.devFolio.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +25,16 @@ public class Article {
 	private String extra__boardCode;
 	private int extra__likePoint;
 	private String extra__thumbImg;
+	
+	private Map<String, Object> extra;
+	
+	public Map<String, Object> getExtraNotNull() {
+		if ( extra == null ) {
+			// Map은 인터페이스라 new Map()을 하면 일일히 내부 알고리즘 직접 구현
+			// HashMap은 Hash key 기반의 map을 이미 구현한 클래스로 O(1)의 속도로 객체를 찾아올 수 있다는게 장점
+			extra = new HashMap<String, Object>();
+		}
+		
+		return extra;
+	}
 }

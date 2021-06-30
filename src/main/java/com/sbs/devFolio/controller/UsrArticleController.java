@@ -1,5 +1,6 @@
 package com.sbs.devFolio.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -161,11 +162,21 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "수정할 게시판 번호를 입력해주세요.");
 		}
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
 		}
+
+		List<GenFile> files = genFileService.getGenFiles("article", article.getId(), "common", "attachment");
+		
+		Map<String, GenFile> filesMap = new HashMap<>();
+		
+		for ( GenFile file : files ) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+		
+		article.getExtraNotNull().put("file__common__attachment", filesMap);
 
 		ResultData actorCanModifyRd = articleService.actorCanModifyRd(article, loginedMemberId);
 
