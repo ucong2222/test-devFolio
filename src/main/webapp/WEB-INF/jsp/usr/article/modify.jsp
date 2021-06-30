@@ -117,15 +117,37 @@ function ArticleModifycheckAndSubmit(form){
 				<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 					<div>
 						<a href="${file.forPrintUrl}" target="_blank" class="text-blue-500 hover:underline">${file.fileName}</a> ( ${Util.numberFormat(file.fileSize)} Byte )
+						<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+                        	<img class="max-w-sm" src="${file.forPrintUrl}">
+                        </a>
+					</div>
+					<div class="mt-2 mb-2">
+						<span class="font-bold">썸네일 수정</span>
+						<input type="file" name="file__article__0__common__attachment__1" />
+					</div>
+				</c:if>
+				
+				<c:set var="fileNo2" value="${String.valueOf(2)}" />
+				<c:set var="file" value="${article.extra.file__common__attachment[fileNo2] }" />
+				<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+					<div class="font-bold">이력서</div>
+					<div>
+						<a href="${file.forPrintUrl}" target="_blank" class="text-blue-500 hover:underline">${file.fileName}</a> ( ${Util.numberFormat(file.fileSize)} Byte )
 						<a class="block" href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
                         	<img class="max-w-sm" src="${file.forPrintUrl}">
                         </a>
 					</div>
 					<div class="mt-2">
-						<span class="font-bold">썸네일 수정</span>
-						<input type="file" name="file__article__0__common__attachment__1" />
+						<span class="font-bold">이력서 수정</span>
+						<input type="file" name="file__article__0__common__attachment__2" />
 					</div>
 				</c:if>
+				<c:if test="${file == null}">
+					<span class="font-bold">이력서 추가</span>
+					<input type="file" name="file__article__0__common__attachment__2" />
+				</c:if>
+				
+				
 			</div>
 			
 			
