@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.sbs.devFolio.dao.ArticleDao;
 import com.sbs.devFolio.dto.Article;
 import com.sbs.devFolio.dto.Board;
+import com.sbs.devFolio.dto.GenFile;
 import com.sbs.devFolio.dto.ResultData;
 import com.sbs.devFolio.util.Util;
 
@@ -25,7 +26,7 @@ public class ArticleService {
 		articleDao.addArticle(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
-		
+
 		changeInputFileRelIds(param, id);
 
 		return new ResultData("S-1", "글작성 성공", "id", id);
@@ -79,8 +80,20 @@ public class ArticleService {
 		return articleDao.getForPrintArticle(id);
 	}
 
-	public List<Article> getForPrintArticles(int boardId) {
-		return articleDao.getForPrintArticles(boardId);
+	public List<Article> getForPrintArticles(int boardId, int limitStart, int limitTake) {
+		List<Article> articles = articleDao.getForPrintArticles(boardId, limitStart, limitTake);
+
+		for (Article article : articles) {
+			GenFile genFile = genFileService.getGenFile("article", article.getId(), "common", "attachment", 1);
+
+			if (genFile != null) {
+				article.setExtra__thumbImg(genFile.getForPrintUrl());
+			} else {
+				article.setExtra__thumbImg("/resource/usr/img/portFolio/thumbImg1.png");
+			}
+		}
+
+		return articles;
 	}
 
 	public void increaseHit(int id) {
@@ -100,6 +113,10 @@ public class ArticleService {
 			}
 		}
 
+	}
+
+	public int getArticlesTotalCount(int boardId) {
+		return articleDao.getArticlesTotalCount(boardId);
 	}
 
 }

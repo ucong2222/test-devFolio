@@ -1,7 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../part/mainLayoutHead.jspf"%>
-    
+
+<script>
+	var page = 1;
+	
+	$(function(){ // 페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+		getList(page);
+		page++;
+	});
+	
+	
+	// $(window).scrollTop() - 스크롤의 현재 위치
+	// $(document).height() - 도큐먼트 높이로 고정
+	// (window).height() = 윈도우창 높이 가변
+	
+	$(window).scroll(function(){ // 스크롤이 최하단으로 내려가면 리스트를 조회하고 page 증가시킨다.
+		if($(window).scrollTop() >= $(document).height() - $(window).height()){
+			getList(page);
+			page++;
+		}
+	});
+	
+	function getList(page){
+		$.ajax({
+			url : '/usr/article/getList',
+			type : 'POST',
+			dataType : "json",
+			data : {"page" : page} ,
+			success : function(data) {
+				var articles = data.body.articles;
+				
+				for ( var i =0; i < articles.length; i++){
+					var article = articles[i];
+					Article__drawList(article);
+				}
+			},
+		});
+	}
+	
+	function Article__drawList(article){
+		var html = $('.template-box-1').html();
+
+		html = html.replaceAll("{$번호}", article.id);
+		html = html.replaceAll("{$썸네일}", article.extra__thumbImg);
+		html = html.replaceAll("{$제목}", article.title);
+		html = html.replaceAll("{$작성자}", article.extra__writer);
+		html = html.replaceAll("{$조회수}", article.hitCount);
+		html = html.replaceAll("{$좋아요}", article.extra__likePoint);
+		
+		$('.portfolio-list').append(html);
+	}
+
+
+</script>
+
 <main>
   <div id="wrapper" class="w-full px-0">
 	  <div id="slider-wrap" class="w-full px-0">
@@ -139,47 +192,45 @@
   <div class="secion-3">
     <div class="container m-auto portfolio-list-box mt-6 mb-6">
       <div class="portfolio-list grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 px-3 gap-x-6 gap-y-20">
-
-		<c:forEach items="${articles}" var="article">
-			<c:set var="detailUrl" value="../article/detail?id=${article.id}"></c:set>
-	        <div class="portfolio-list-item">
-	          <div class="portfolio-list-img-box relative pt-80p overflow-hidden rounded-md box-border">
-	            <a class="portfolio-list-img block" href="${detailUrl}">
-	              <img class="absolute inset-0 h-full object-cover duration-1000" src="${article.extra__thumbImg}" alt="">
-	            </a>
-	          </div>
-	          <div class="portfolio-list-info">
-	            <div class="portfolio-info-top">
-	              <a class="portfolio-title block py-2 text-2xl font-bold truncate" href="${detailUrl}">${article.title}</a>
-	            </div>
-	            <div class="portfolio-info-bottom flex text-xl mt-1 text-gray-500">
-	              <div class="portfolio-nickname text-black">
-	                <a href="#">${article.extra__writer}</a>
-	              </div>
-	              <div class="flex-grow"></div>
-	              <div class="portfolio-hit">
-	                <span><i class="far fa-eye"></i></span>
-	                <span>${article.hitCount}</span>
-	              </div>
-	              <div class="portfolio-like ml-2">
-	                <span><i class="far fa-heart"></i></span>
-	                <span>${article.extra__likePoint}</span>
-	              </div>
-	              <div class="portfolio-reply ml-2">
-	                <span><i class="far fa-comment-dots"></i></span>
-	                <span>36</span>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-        </c:forEach>
-    
+      
         
-
       </div>
     </div>
   </div>
 
+	<div class="template-box template-box-1 hidden">
+	<c:set var="detailUrl" value="../article/detail?id={$번호}"></c:set>
+       <div class="portfolio-list-item">
+         <div class="portfolio-list-img-box relative pt-80p overflow-hidden rounded-md box-border">
+           <a class="portfolio-list-img block" href="${detailUrl}">
+             <img class="absolute inset-0 h-full object-cover duration-1000" src="{$썸네일}" alt="">
+           </a>
+         </div>
+         <div class="portfolio-list-info">
+           <div class="portfolio-info-top">
+             <a class="portfolio-title block py-2 text-2xl font-bold truncate" href="${detailUrl}">{$제목}</a>
+           </div>
+           <div class="portfolio-info-bottom flex text-xl mt-1 text-gray-500">
+             <div class="portfolio-nickname text-black">
+               <a href="#">{$작성자}</a>
+             </div>
+             <div class="flex-grow"></div>
+             <div class="portfolio-hit">
+               <span><i class="far fa-eye"></i></span>
+               <span>{$조회수}</span>
+             </div>
+             <div class="portfolio-like ml-2">
+               <span><i class="far fa-heart"></i></span>
+               <span>{$좋아요}</span>
+             </div>
+             <div class="portfolio-reply ml-2">
+               <span><i class="far fa-comment-dots"></i></span>
+               <span>36</span>
+             </div>
+           </div>
+         </div>
+       </div>
+  	</div>
 </main>
 <%@ include file="../part/mainLayoutFoot.jspf"%>
     

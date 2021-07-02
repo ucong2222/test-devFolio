@@ -75,20 +75,26 @@ public class UsrArticleController extends BaseController {
 	}
 
 	// 글리스트
-	@RequestMapping("usr/article/list")
-	public String showList(@RequestParam(defaultValue = "1") int boardId, HttpServletRequest req) {
+	@RequestMapping("usr/article/getList")
+	public String showList(@RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "1") int page, HttpServletRequest req) {
 		Board board = articleService.getBoard(boardId);
-
+		
 		if (board == null) {
 			return msgAndBack(req, "존재하지 않는 게시판입니다.");
 		}
 
-		List<Article> articles = articleService.getForPrintArticles(board.getId());
+		// 리스트의 총 게시물 수
+		int totalCnt = articleService.getArticlesTotalCount(board.getId());
+		// 페이지당 가져올 게시물 수
+		int itemsInAPage = 12;
+		// 페이지 넘어갈때마다 가져와야되는 첫 게시물 순서
+		int limitStart = (page - 1) * itemsInAPage;
 
-		req.setAttribute("board", board);
-		req.setAttribute("articles", articles);
+		List<Article> articles = articleService.getForPrintArticles(board.getId(), limitStart, itemsInAPage);
 
-		return "usr/article/list";
+		return json(req,new ResultData("S-1", "성공", "board", board, "articles", articles, "totalCnt", totalCnt, "limitStart",
+				limitStart, "limitEnd", limitStart + itemsInAPage ));
 	}
 
 	@RequestMapping("/usr/pages/portFolio")
@@ -99,20 +105,7 @@ public class UsrArticleController extends BaseController {
 			return msgAndBack(req, "존재하지 않는 게시판입니다.");
 		}
 
-		List<Article> articles = articleService.getForPrintArticles(board.getId());
-
-		for ( Article article : articles ) {
-			GenFile genFile = genFileService.getGenFile("article", article.getId(), "common", "attachment", 1);
-
-			if ( genFile != null ) {
-				article.setExtra__thumbImg(genFile.getForPrintUrl());
-			} else {
-				article.setExtra__thumbImg("/resource/usr/img/portFolio/thumbImg1.png");
-			}
-		}
-		
 		req.setAttribute("board", board);
-		req.setAttribute("articles", articles);
 
 		return "/usr/pages/portFolio";
 	}
@@ -156,13 +149,13 @@ public class UsrArticleController extends BaseController {
 		}
 
 		List<GenFile> files = genFileService.getGenFiles("article", article.getId(), "common", "attachment");
-		
+
 		Map<String, GenFile> filesMap = new HashMap<>();
-		
-		for ( GenFile file : files ) {
+
+		for (GenFile file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
-		
+
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 
 		ResultData actorCanModifyRd = articleService.actorCanModifyRd(article, loginedMemberId);

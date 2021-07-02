@@ -63,6 +63,15 @@
 		WHERE A.boardId = #{boardId}
 		GROUP BY A.id
 		ORDER BY A.id DESC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+	
+	<select id="getArticlesTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM article
+		WHERE boardId = #{boardId}
 	</select>
 	
 	<update id="modifyArticle">
